@@ -3,7 +3,6 @@
  * compute evaluate by Dijkstra double stacks
  */
 function evaluate(str) {
-    debugger
     let strArr = [...str];
     let numStack = [];
     let operStack = [];
