@@ -1,4 +1,4 @@
-export class FixedCapacityStack {
+export class ArrayStack {
     constructor(num) {
         this.size = 0;
         this.arr = new Array(num);
