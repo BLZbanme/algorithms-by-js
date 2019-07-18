@@ -5,7 +5,7 @@
 | 选择排序 | O(n<sup>2</sup>) |    O(1)    |           n<sup>2</sup>/2           |                 n                 |                        |
 | 插入排序 | O(n<sup>2</sup>) |    O(1)    | n-1~n<sup>2</sup>/4~n<sup>2</sup>/2 | 0~n<sup>2</sup>/4~n<sup>2</sup>/2 | 对部分有序的数组性能好 |
 | 希尔排序 |                  |            |                                     |                                   |  平均性能优于插入排序  |
-| 归并排序 |     O(nlogn)     |    O(n)    |           nlogn / 2~nlogn           |                                   |                        |
+| 归并排序 |     O(nlogn)     |    O(n)    |           nlogn / 2~nlogn           |                                   |        渐进最优        |
 
 ##### 注：
 
@@ -112,4 +112,36 @@ function merge(arr, lo, mid, hi) {
 }
 ```
 
-#### 
+###### 自底向上版：
+
+```javascript
+function mergeSort(arr) {
+    const N = arr.length;
+    for (let size = 1; size < N; size << = 1) {
+        for (let i = 0; i < N - size; i += size * 2) {
+            merge(arr, i, i + size - 1, Math.min(i + 2 * size - 1, N - 1));
+        }
+    }
+}
+
+function merge(arr, lo, mid, hi) {
+    let i = lo;
+    let j = mid + 1;
+    let tmp = [...arr];
+    for (let k = lo; k <= hi; k++) {
+        if (i > mid) {
+            arr[k] = tmp[j++];
+        }
+        else if (j > hi) {
+            arr[k] = tmp[i++];
+        }
+        else if (tmp[i] < tmp[j]) {
+            arr[k] = tmp[i++];
+        }
+        else {
+            arr[k] = tmp[j++];
+        }
+    }
+}
+```
+
