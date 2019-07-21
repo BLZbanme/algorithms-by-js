@@ -6,6 +6,8 @@
 | 插入排序 | O(n<sup>2</sup>) |    O(1)    | n-1~n<sup>2</sup>/4~n<sup>2</sup>/2 | 0~n<sup>2</sup>/4~n<sup>2</sup>/2 | 对部分有序的数组性能好 |
 | 希尔排序 |                  |            |                                     |                                   |  平均性能优于插入排序  |
 | 归并排序 |     O(nlogn)     |    O(n)    |           nlogn / 2~nlogn           |                                   |        渐进最优        |
+| 快速排序 |     O(nlogn)     |    O(1)    |         至多n<sup>2</sup>/2         |                                   |         不稳定         |
+|  堆排序  |     O(nlogn)     |  O(nlogn)  |                                     |                                   |                        |
 
 ##### 注：
 
@@ -14,6 +16,8 @@
 1. 数组中每个元素距离它的最终位置都不远；
 2. 一个有序的大数组接一个小数组；	
 3. 数组中只有几个元素的位置不正确。
+
+不稳定：指的是快排可能会移动相同元素的相对位置。
 
 ## 代码实现：
 
@@ -142,6 +146,68 @@ function merge(arr, lo, mid, hi) {
             arr[k] = tmp[j++];
         }
     }
+}
+```
+
+#### 快速排序
+
+```javascript
+function quickSort(arr) {
+    sort(arr, 0, arr.length - 1);
+    return arr;
+}
+
+function sort(arr, lo, hi) {
+    if (lo >= hi) {
+        return;
+    }
+    const j = parition(arr, lo, hi);
+    sort(arr, lo, j - 1);
+    sort(arr, j + 1, hi);
+}
+
+function partition(arr, lo, hi) {
+    let i = lo;
+    let j = hi + 1;
+    const cur = arr[lo];
+    while (true) {
+        while (arr[++i] < cur && i < hi) {
+        };
+        while (arr[--j] > cur && j > lo) {
+        }
+        if (i >= j) {
+            break;
+        }
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    [arr[lo], arr[j]] = [arr[j], arr[lo]];
+    return j;
+}
+```
+
+###### 三向切分版：大量重复的情况性能好。
+
+```javascript
+function quick3waySort(arr, lo, hi) {
+    if (lo >= hi) {
+        return;
+    }
+    let lt = lo, i = lo + 1, gt = hi;
+    const cur = arr[lo];
+    while (i <= gt) {
+        const cmp = cur - arr[i];
+        if (cmp > 0) {
+            [arr[i], arr[gt--]] = [arr[gt], arr[i]];
+        }
+        else if (cmp < 0) {
+            [arr[i++], arr[lt++]] = [arr[lt], arr[i]];
+        }
+        else {
+            i++;
+        }
+    }
+    quick3waySort(arr, lo, lt - 1);
+    quick3waySort(arr, gt + 1, hi);
 }
 ```
 
