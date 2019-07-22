@@ -1,13 +1,14 @@
 ## 总体比较：
 
-|   方法   |    时间复杂度    | 空间复杂度 |              比较次数               |             交换次数              |          备注          |
-| :------: | :--------------: | :--------: | :---------------------------------: | :-------------------------------: | :--------------------: |
-| 选择排序 | O(n<sup>2</sup>) |    O(1)    |           n<sup>2</sup>/2           |                 n                 |                        |
-| 插入排序 | O(n<sup>2</sup>) |    O(1)    | n-1~n<sup>2</sup>/4~n<sup>2</sup>/2 | 0~n<sup>2</sup>/4~n<sup>2</sup>/2 | 对部分有序的数组性能好 |
-| 希尔排序 |                  |            |                                     |                                   |  平均性能优于插入排序  |
-| 归并排序 |     O(nlogn)     |    O(n)    |           nlogn / 2~nlogn           |                                   |        渐进最优        |
-| 快速排序 |     O(nlogn)     |    O(1)    |         至多n<sup>2</sup>/2         |                                   |         不稳定         |
-|  堆排序  |     O(nlogn)     |  O(nlogn)  |                                     |                                   |                        |
+|     方法     |         时间复杂度          | 空间复杂度 | 是否稳定 | 是否为原地排序 |             备注             |
+| :----------: | :-------------------------: | :--------: | :------: | :------------: | :--------------------------: |
+|   选择排序   |      O(n<sup>2</sup>)       |    O(1)    |    否    |       是       |                              |
+|   插入排序   |    O(n)~O(n<sup>2</sup>)    |    O(1)    |    是    |       是       |    对部分有序的数组性能好    |
+|   希尔排序   | O(nlogn)~O(n<sup>6/5</sup>) |    O(1)    |    否    |       是       | 平均性能优于插入排序，不稳定 |
+|   归并排序   |          O(nlogn)           |    O(n)    |    是    |       否       |           渐进最优           |
+|   快速排序   |          O(nlogn)           |   O(lgn)   |    否    |       是       |    不稳定,最快的通用排序     |
+| 三向快速排序 |        O(n)~O(nlogn)        |   O(lgn)   |    否    |       是       |                              |
+|    堆排序    |          O(nlogn)           |    O(1)    |    否    |       是       |     不稳定，无法利用缓存     |
 
 ##### 注：
 
@@ -208,6 +209,38 @@ function quick3waySort(arr, lo, hi) {
     }
     quick3waySort(arr, lo, lt - 1);
     quick3waySort(arr, gt + 1, hi);
+}
+```
+
+#### 堆排序：
+
+```javascript
+function heapSort(arr) {
+    let N = arr.length;
+    arr = [0, ...arr];
+    for (let i = Math.floor(N / 2); i >= 1; i--) {
+        sink(arr, i, N);
+    }
+    
+    while (N > 1) {
+        [arr[1], arr[N--]] = [arr[N], arr[1]];
+        sink(arr, 1, N);
+    }
+    arr.shift();
+}
+
+function sink(arr, i, N) {
+    while (i * 2 <= N) {
+        let j = i * 2;
+        if (j < N && arr[j] < arr[j + 1]) {
+            j++;
+        }
+        if (arr[i] >= arr[j]) {
+            break;
+        }
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        i = j;
+    }
 }
 ```
 

@@ -1,7 +1,7 @@
 /**
  * Priority-Queue based on binary heap
  */ 
-class MaxPQ {
+export class MaxPQ {
 
     constructor(capacity) {
         this.size = 0;
@@ -59,7 +59,7 @@ class MaxPQ {
             if (j < this.size && this.pq[j] < this.pq[j + 1]) {
                 j++;
             }
-            if (this.pq[k] < this.pq[j]) {
+            if (this.pq[k] >= this.pq[j]) {
                 break;
             }
             this.exch(k, j);
