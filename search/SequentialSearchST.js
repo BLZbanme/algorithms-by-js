@@ -1,4 +1,4 @@
-class SequentialSearchST {
+export class SequentialSearchST {
 
     constructor() {
         this.first = null;
