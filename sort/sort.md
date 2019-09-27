@@ -122,7 +122,7 @@ function merge(arr, lo, mid, hi) {
 ```javascript
 function mergeSort(arr) {
     const N = arr.length;
-    for (let size = 1; size < N; size << = 1) {
+    for (let size = 1; size < N; size <<= 1) {
         for (let i = 0; i < N - size; i += size * 2) {
             merge(arr, i, i + size - 1, Math.min(i + 2 * size - 1, N - 1));
         }
