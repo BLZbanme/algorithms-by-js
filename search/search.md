@@ -16,3 +16,27 @@
 |      二叉查找树      |         BST         |         实现简单，能够进行有序性相关的操作         |            没有性能上届的保证，链接需要额外的空间            |
 |    平衡二叉查找树    |     RedBlackBST     |   最优的查找和插入效率，能够进行有序性相关的操作   |                      链接需要额外的空间                      |
 |        散列表        | SeparateChainHashST |         能够快速地查找和插入常见类型的数据         | 需要计算各种类型的数据的散列，无法进行有序性相关的操作，链接和空结点需要额外的空间 |
+
+# 标准二分查找
+
+```javascript
+function binarySearch(arr, val) {
+    let lo = 0;
+    let hi = arr.length;
+    while (lo <= hi) {
+        let mid = lo + ((hi - lo) >> 1);
+        if (arr[mid] === val) {
+            return mid;
+        }
+        else if (arr[mid] < val) {
+            lo = mid + 1;
+        }
+        else {
+            hi = mid - 1;
+        }
+    }
+    return lo;
+}
+
+```
+
