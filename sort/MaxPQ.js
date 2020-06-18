@@ -39,10 +39,10 @@ export class MaxPQ {
 
     resize(max) {
         let tmp = new Array(max);
-        for (let i = 0; i < this.size; i++) {
+        for (let i = 0; i <= this.size; i++) {
             tmp[i] = this.pq[i];
         }
-        this.arr = tmp;
+        this.pq = tmp;
     }
 
     swim(k) {

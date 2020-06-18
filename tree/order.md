@@ -53,6 +53,7 @@ function postOrder(root) {
             cur = cur.right;
         }
         else {
+            console.log(cur.val);
             pre = cur;
             stack.pop();
             cur = null;
