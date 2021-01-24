@@ -6,8 +6,11 @@ class UnionFind {
 
     findRoot(x) {
         if (this.parent[x] === -1) return x;
-        let xRoot = this.findRoot(this.parent[x]);
-        return xRoot;
+        // let xRoot = this.findRoot(this.parent[x]);
+        // return xRoot;
+        //路径压缩的写法
+        this.parent[x] = this.findRoot(this.parent[x]);
+        return this.parent[x];
     }
 
     /** 1- union successfully, 0 - failed */
